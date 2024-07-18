@@ -15,7 +15,7 @@ export class SessionService {
 
     const passwordMatch = await bcrypt.compare(
         payload.password,
-         account?.password
+         account.password
         );
 
 
