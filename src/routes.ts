@@ -8,4 +8,5 @@ export function initRouters(app: Express) {
     v1Router.use("/v1/accounts", accountRouter);
 
     app.use("/api", v1Router);
+    app.use("/api", v1Router);
 }
