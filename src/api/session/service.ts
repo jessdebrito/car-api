@@ -26,7 +26,7 @@ export class SessionService {
         const secret = process.env.JWT_SECRET as string;
 
         const token = jwt.sign(
-            { fullName: account.fullName },
+            { fullName: account.name },
             secret,
             {
                 expiresIn: "1m",
