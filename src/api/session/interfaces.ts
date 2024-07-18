@@ -1,4 +1,4 @@
 import { z } from "zod";
 import { sessionLoginSchema } from "./schemas";
 
-export type SessioinLogin = z.infer<typeof sessionLoginSchema>;
+export type SessionLogin = z.infer<typeof sessionLoginSchema>;
