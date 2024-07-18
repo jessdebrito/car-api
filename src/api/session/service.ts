@@ -2,7 +2,7 @@ import { prisma } from "../../../prisma/prisma.client";
 import { ApiError } from "../@shared/errors";
 import { SessionLogin } from "./interfaces";
 import * as bcrypt from "bcryptjs";
-import {sign} from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export class SessionService {
     public login = async (payload: SessionLogin) => {
@@ -24,11 +24,14 @@ export class SessionService {
         };
 
         const secret = process.env.JWT_SECRET as string;
-        
-        const token = sign({}, secret, {
-            expiresIn: "1m",
-            subject: account.id.toString()
-        });
+
+        const token = jwt.sign(
+            { fullName: account.fullName },
+            secret,
+            {
+                expiresIn: "1m",
+                subject: account.id.toString()
+            });
 
         return token;
     };
