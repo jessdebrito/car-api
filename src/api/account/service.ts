@@ -6,7 +6,7 @@ import { accountWithoutPasswordSchema } from "./schemas";
 
 export class AccountService {
     public create = async (payload: accountCreate) => {
-        payload.password = await bcrypt.hashSync(payload.password);
+        payload.password = await hashPassword(payload.password);
 
         const newAccount = await prisma.account.create({ data: payload });
 
