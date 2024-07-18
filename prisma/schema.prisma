@@ -23,6 +23,11 @@ model Car {
   km        Int
   createAt DateTime @default(now()) @map("created_at")
   updateAt DateTime @default(now()) @map("update_at")
+
+  createdById Int     @map("created_by_id")
+  createdBy   Account @relation(fields: [createdById], references: [id])
+
+  @@map("cars")
 }
 
 model Account {
@@ -32,6 +37,8 @@ model Account {
   password String @db.VarChar(255)
   createAt DateTime @default(now()) @map("created_at")
   updateAt DateTime @default(now()) @map("update_at")
+
+  cars Car[]
 
    @@map("users")  
 }
