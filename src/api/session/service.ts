@@ -30,7 +30,7 @@ export class SessionService {
             secret,
             {
                 expiresIn: "1m",
-                subject: account.id.toString()
+                subject: String(account.id),
             });
 
         return token;

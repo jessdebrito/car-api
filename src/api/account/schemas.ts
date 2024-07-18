@@ -18,3 +18,5 @@ export const accountCreateSchema = accountSchema.omit({
 export const accountWithoutPasswordSchema =  accountSchema.omit({ 
     password:true 
 });
+
+export const accountUpdateSchema = accountCreateSchema.partial();

@@ -1,9 +1,8 @@
 import { prisma } from "../../../prisma/prisma.client";
-import { AccountCreate } from "./interfaces";
-import * as bcrypt from "bcryptjs";
-import { accountWithoutPasswordSchema } from "./schemas";
+import { AccountCreate, AccountUpdate } from "./interfaces";
 import { hashPassword } from "./utils";
-
+import { accountWithoutPasswordSchema } from "./schemas";
+import { ApiError } from "../@shared/errors";
 
 export class AccountService {
   public create = async (payload: AccountCreate) => {
@@ -15,14 +14,28 @@ export class AccountService {
 
   public findAll = async () => {
     const accounts = await prisma.account.findMany();
+
     return accountWithoutPasswordSchema.array().parse(accounts);
   };
 
+  public findById = async (id: number) => {
+    const account = await prisma.account.findUnique({ where: { id } });
 
-  public partialUpdate = async (
-    id: number, payload: Partial<AccountCreate>
-  ) => {
-    return { message: "PATCH /accounts/:id" }
+    if (!account) {
+      throw new ApiError("User not found", 404);
+    }
 
+    return account;
+  };
+
+  public partialUpdate = async (id: number, payload: AccountUpdate) => {
+    await this.findById(id);
+
+    const updatedAccount = await prisma.account.update({
+      data: payload,
+      where: { id },
+    });
+
+    return accountWithoutPasswordSchema.parse(updatedAccount);
   };
 }
