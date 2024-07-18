@@ -13,3 +13,7 @@ export const accountCreateSchema = accountSchema.omit({
     createdAt: true,
     updatedAt: true,
 });
+
+export const accountWithoutPasswordSchema =  accountSchema.omit({ 
+    password:true 
+});
