@@ -1,20 +1,22 @@
 import { prisma } from "../../../prisma/prisma.client";
-import { accountCreate } from "./interfaces";
-import * as bcrypt from  "bcryptjs";
-import { hashPassword } from "./utils";
+import { AccountCreate } from "./interfaces";
+import * as bcrypt from "bcryptjs";
 import { accountWithoutPasswordSchema } from "./schemas";
+import { hashPassword } from "./utils";
+
 
 export class AccountService {
-    public create = async (payload: accountCreate) => {
-        payload.password = await hashPassword(payload.password);
+  public create = async (payload: AccountCreate) => {
+    payload.password = await hashPassword(payload.password);
 
-        const newAccount = await prisma.account.create({ data: payload });
+    const newAccount = await prisma.account.create({ data: payload });
 
-        return accountWithoutPasswordSchema.parse(newAccount);
-    };
+    return accountWithoutPasswordSchema.parse(newAccount);
+  };
 
-    public findAll = async () => {
-        const accounts = await prisma.account.findMany();
-        return accountWithoutPasswordSchema.array().parse(accounts);
-    };
+  public findAll = async () => {
+    const accounts = await prisma.account.findMany();
+    return accountWithoutPasswordSchema.array().parse(accounts);
+  };
 }
+

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const accountSchema = z.object({
     id: z.number().positive().int(),
-    fullName: z.string().max(100),
+    name: z.string().max(100),
     email: z.string().email().max(100),
     password: z.string().max(255),
     createdAt: z.date(),

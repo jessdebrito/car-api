@@ -10,7 +10,7 @@ export class AccountController {
 
         return res.status(201).json(account);
     };
-
+    
     public findAll = async ( req: Request, res: Response) => {
         const account = await this.accountService.findAll()
 
