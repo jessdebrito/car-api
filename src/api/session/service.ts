@@ -22,6 +22,6 @@ export class SessionService {
             throw new ApiError("Invalid credentials", 401)
         };
 
-        return ({ message: "POST /login" });
+        return ({ message: "Login successful!" });
     };
 }
