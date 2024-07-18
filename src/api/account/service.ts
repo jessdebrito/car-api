@@ -8,7 +8,6 @@ import { hashPassword } from "./utils";
 export class AccountService {
   public create = async (payload: AccountCreate) => {
     payload.password = await hashPassword(payload.password);
-
     const newAccount = await prisma.account.create({ data: payload });
 
     return accountWithoutPasswordSchema.parse(newAccount);
@@ -18,5 +17,12 @@ export class AccountService {
     const accounts = await prisma.account.findMany();
     return accountWithoutPasswordSchema.array().parse(accounts);
   };
-}
 
+
+  public partialUpdate = async (
+    id: number, payload: Partial<AccountCreate>
+  ) => {
+    return { message: "PATCH /accounts/:id" }
+
+  };
+}
