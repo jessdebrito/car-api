@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "Car" (
+CREATE TABLE "cars" (
     "id" SERIAL NOT NULL,
     "car_name" VARCHAR(100) NOT NULL,
     "description" TEXT,
@@ -8,8 +8,9 @@ CREATE TABLE "Car" (
     "km" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "update_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by_id" INTEGER NOT NULL,
 
-    CONSTRAINT "Car_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "cars_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -26,3 +27,6 @@ CREATE TABLE "users" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- AddForeignKey
+ALTER TABLE "cars" ADD CONSTRAINT "cars_created_by_id_fkey" FOREIGN KEY ("created_by_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
