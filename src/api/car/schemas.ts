@@ -9,7 +9,6 @@ export const carSchema = z.object({
     km: z.number(),
     createdAt: z.date(),
     updatedAt: z.date(),
-
     userId: z.number().positive().int(),
 });
 
@@ -17,7 +16,7 @@ export const carCreateSchema = carSchema.omit({
     id: true,
     createdAt: true,
     updatedAt: true,
-    userId: true,
+
 });
 
 export const carUpdateSchema = carCreateSchema.partial();
