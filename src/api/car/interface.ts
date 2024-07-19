@@ -11,14 +11,14 @@ export type CarUpdate = z.infer<typeof carUpdateSchema>;
 
 
 
-
-/*  export interface ICarService {
+/* 
+  export interface ICarService {
 
     create(payload: CarCreate): Promise<Car>;
 
     findAll(): Promise<Car[]>;
     findById(id: number): Promise<Car | null>;
-//     findByUser(user: string): Promise<Car[] | null>;
+    findByUser(user: string): Promise<Car[] | null>;
 
     partialUpdate(
         id: number,
@@ -26,4 +26,4 @@ export type CarUpdate = z.infer<typeof carUpdateSchema>;
     ): Promise<CarUpdate>;
 
     delete(id: number): Promise<void>;
-} */
+}  */

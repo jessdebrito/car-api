@@ -5,7 +5,7 @@ import { injectable } from "tsyringe";
 import { carSchema } from "./schemas";
 
 @injectable()
-export class CarService {
+export class CarService  {
     
     public create = async (payload: CarCreate) => {
 

@@ -20,13 +20,3 @@ export const carCreateSchema = carSchema.omit({
 });
 
 export const carUpdateSchema = carCreateSchema.partial();
-
-/* 
-id          Int      @id @default(autoincrement())
-name        String   @map("car_name") @db.VarChar(100)
-description String?  @db.Text
-brand       String   @db.VarChar(100)
-year        Int
-km          Int
-createdAt   DateTime @default(now()) @map("created_at")
-updatedAt   DateTime @default(now()) @map("updated_at") */
