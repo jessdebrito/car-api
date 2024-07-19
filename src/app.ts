@@ -4,7 +4,10 @@ import "express-async-errors";
 import { handleGlobalErrors } from "./api/@shared/errors";
 import { initRoutes } from "./routes";
 
+
 export const app = express();
+
+
 
 app.use(express.json());
 

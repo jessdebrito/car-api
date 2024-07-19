@@ -6,7 +6,7 @@ export class EmailAlreadyUsedError extends ConflictError {
     }
 }
 
-export class AccountNotFoundError extends NotFoundError {
+export class UserNotFoundError extends NotFoundError {
     constructor(public readonly message: string = "User not registered") {
         super(message)
     }

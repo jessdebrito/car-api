@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { accountCreateSchema } from "../account/schemas";
+import { accountCreateSchema } from "../users/schemas";
 
 export const sessionLoginSchema = accountCreateSchema.pick({
     email: true,
