@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { ApiError } from "../@shared/errors";
-import jwt from "jsonwebtoken";
 import { verifyToken } from "../../configs";
 
 export function isAuthenticated(

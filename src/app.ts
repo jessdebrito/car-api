@@ -1,13 +1,13 @@
-import express from  "express";
+import express from "express";
+import "reflect-metadata";
 import "express-async-errors";
-import { initRouters } from "./routes";
 import { handleGlobalErrors } from "./api/@shared/errors";
-
+import { initRoutes } from "./routes";
 
 export const app = express();
 
 app.use(express.json());
 
-initRouters(app);
+initRoutes(app);
 
 app.use(handleGlobalErrors);

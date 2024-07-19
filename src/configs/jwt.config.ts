@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
+import { parsedEnv } from "./env.config";
 
 export function generateToken(payload: object = {}, userId: number) {
-    const secret = process.env.JWT_SECRET as string;
+    const secret = parsedEnv.JWT_SECRET;
 
     return jwt.sign(payload, secret, {
         expiresIn: "1h",
@@ -10,7 +11,9 @@ export function generateToken(payload: object = {}, userId: number) {
 }
 
 export function verifyToken(token: string) {
-    const secret = process.env.JWT_SECRET as string;
+    const secret = parsedEnv.JWT_SECRET;
+
     const { sub } = jwt.verify(token, secret);
-    return sub
+
+    return sub;
 }
