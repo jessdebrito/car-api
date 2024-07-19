@@ -6,7 +6,6 @@ import { ApiError } from "../@shared/errors";
 import { AccountNotFoundError, EmailAlreadyUsedError } from "./errors";
 
 export class AccountService {
-
   public findByEmail = async (email: string) => {
     const account = prisma.account.findUnique({ where: { email } });
 
@@ -18,8 +17,7 @@ export class AccountService {
 
     if (hasDuplicatedEmail) {
       throw new EmailAlreadyUsedError();
-    };
-
+    }
 
     payload.password = await hashPassword(payload.password);
     const newAccount = await prisma.account.create({ data: payload });
@@ -37,14 +35,16 @@ export class AccountService {
     const account = await prisma.account.findUnique({ where: { id } });
 
     if (!account) {
-      throw new AccountNotFoundError()
+      throw new AccountNotFoundError();
     }
 
-    return account;
+    return accountWithoutPasswordSchema.parse(account);
   };
 
   public partialUpdate = async (id: number, payload: AccountUpdate) => {
+  
     await this.findById(id);
+
 
     if (payload.email) {
       const hasDuplicatedEmail = await this.findByEmail(payload.email);
@@ -52,6 +52,10 @@ export class AccountService {
       if (hasDuplicatedEmail) {
         throw new EmailAlreadyUsedError();
       }
+    }
+
+    if (payload.password) {
+      payload.password = await hashPassword(payload.password);
     }
 
     const updatedAccount = await prisma.account.update({

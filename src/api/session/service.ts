@@ -1,8 +1,8 @@
 import { prisma } from "../../../prisma/prisma.client";
+import { generateToken } from "../../configs";
 import { ApiError } from "../@shared/errors";
 import { SessionLogin } from "./interfaces";
 import * as bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 
 export class SessionService {
     public login = async (payload: SessionLogin) => {
@@ -23,15 +23,7 @@ export class SessionService {
             throw new ApiError("E-mail and password doesn't match", 401)
         };
 
-        const secret = process.env.JWT_SECRET as string;
-
-        const token = jwt.sign(
-            { fullName: account.name },
-            secret,
-            {
-                expiresIn: "1m",
-                subject: String(account.id),
-            });
+        const token = generateToken({ name: account.name }, account.id);
 
         return token;
     };
