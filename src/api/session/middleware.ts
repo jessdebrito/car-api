@@ -10,7 +10,7 @@ export function isAuthenticated(
     const { authorization } = req.headers;
   
     if (!authorization) {
-      throw new ApiError("Missing bearer token", 401);
+      throw new ApiError("Token is required", 401);
     }
   
     const [type, token] = authorization.split(" ");

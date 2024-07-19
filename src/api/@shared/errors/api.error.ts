@@ -3,3 +3,21 @@ export class ApiError extends Error {
         super();
     }
 }
+
+export class ConflictError extends ApiError {
+    constructor(
+        public message: string, 
+        public readonly statusCode: number = 409
+    ) {
+        super(message)
+    }
+}
+
+export class NotFoundError extends ApiError {
+    constructor(
+        public message: string, 
+        public readonly statusCode: number = 404
+    ) {
+        super(message)
+    }
+}

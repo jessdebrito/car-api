@@ -3,9 +3,24 @@ import { AccountCreate, AccountUpdate } from "./interfaces";
 import { hashPassword } from "./utils";
 import { accountWithoutPasswordSchema } from "./schemas";
 import { ApiError } from "../@shared/errors";
+import { AccountNotFoundError, EmailAlreadyUsedError } from "./errors";
 
 export class AccountService {
+
+  public findByEmail = async (email: string) => {
+    const account = prisma.account.findUnique({ where: { email } });
+
+    return account;
+  };
+
   public create = async (payload: AccountCreate) => {
+    const hasDuplicatedEmail = await this.findByEmail(payload.email);
+
+    if (hasDuplicatedEmail) {
+      throw new EmailAlreadyUsedError();
+    };
+
+
     payload.password = await hashPassword(payload.password);
     const newAccount = await prisma.account.create({ data: payload });
 
@@ -22,7 +37,7 @@ export class AccountService {
     const account = await prisma.account.findUnique({ where: { id } });
 
     if (!account) {
-      throw new ApiError("User not found", 404);
+      throw new AccountNotFoundError()
     }
 
     return account;

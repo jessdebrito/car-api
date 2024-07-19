@@ -11,7 +11,7 @@ export class SessionService {
         });
 
         if (!account) {
-            throw new ApiError("Invalid credentials", 401)
+            throw new ApiError("E-mail and password doesn't match", 401)
         };
 
         const passwordMatch = await bcrypt.compare(
@@ -20,7 +20,7 @@ export class SessionService {
         );
 
         if (!passwordMatch) {
-            throw new ApiError("Invalid credentials", 401)
+            throw new ApiError("E-mail and password doesn't match", 401)
         };
 
         const secret = process.env.JWT_SECRET as string;
