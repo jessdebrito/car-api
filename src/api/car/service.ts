@@ -1,5 +1,5 @@
 import { prisma } from "../../../prisma/prisma.client";
-import {  TCarCreate, TCarUpdate } from "./interface";
+import {  Car ,CarCreate, CarUpdate } from "./interface";
 import { CarNotFoundError } from "./error";
 import { injectable } from "tsyringe";
 import { carSchema } from "./schemas";
@@ -7,7 +7,7 @@ import { carSchema } from "./schemas";
 @injectable()
 export class CarService {
     
-    public create = async (payload: TCarCreate) => {
+    public create = async (payload: CarCreate) => {
 
         const car = await prisma.car.create({ data: payload });
 
@@ -29,7 +29,7 @@ export class CarService {
         return car;
     };
 
-    public partialUpdate = async (id: number, payload: TCarUpdate) => {
+    public partialUpdate = async (id: number, payload: CarUpdate) => {
         await this.findById(id);
 
         const updatedCar = await prisma.car.update({

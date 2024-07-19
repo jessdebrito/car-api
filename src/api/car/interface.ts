@@ -5,14 +5,14 @@ import {
     carUpdateSchema,
 } from "./schemas";
 
-export type TCar = z.infer<typeof carSchema>;
-export type TCarCreate = z.infer<typeof carCreateSchema>;
-export type TCarUpdate = z.infer<typeof carUpdateSchema>;
+export type Car = z.infer<typeof carSchema>;
+export type CarCreate = z.infer<typeof carCreateSchema>;
+export type CarUpdate = z.infer<typeof carUpdateSchema>;
 
 
 
 
- export interface ICarService {
+/*  export interface ICarService {
 
     create(payload: CarCreate): Promise<Car>;
 
@@ -26,4 +26,4 @@ export type TCarUpdate = z.infer<typeof carUpdateSchema>;
     ): Promise<CarUpdate>;
 
     delete(id: number): Promise<void>;
-}
+} */
