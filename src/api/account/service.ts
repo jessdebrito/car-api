@@ -46,6 +46,14 @@ export class AccountService {
   public partialUpdate = async (id: number, payload: AccountUpdate) => {
     await this.findById(id);
 
+    if (payload.email) {
+      const hasDuplicatedEmail = await this.findByEmail(payload.email);
+
+      if (hasDuplicatedEmail) {
+        throw new EmailAlreadyUsedError();
+      }
+    }
+
     const updatedAccount = await prisma.account.update({
       data: payload,
       where: { id },
