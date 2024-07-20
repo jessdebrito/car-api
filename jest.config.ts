@@ -1,6 +1,20 @@
-export default {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  testMatch: [ '**/__tests__/specs/(cars|integrations)/**/*.[jt]s?(x)' ],
-  setupFilesAfterEnv: [ './src/__tests__/mocks/prisma.ts', './src/__tests__/setupFiles.ts' ]
+/**
+ * For a detailed explanation regarding each configuration property, visit:
+ * https://jestjs.io/docs/configuration
+ */
+
+import type { Config } from "jest";
+
+const config: Config = {
+  
+  coverageProvider: "v8",
+  preset: "ts-jest",
+  setupFiles: ["./src/api/@shared/tests/setupFiles.ts"],
+
+  testMatch: ["**/__tests__/(unit|integration)/**/*.test.[jt]s"],
+
+  
+
 };
+
+export default config;
