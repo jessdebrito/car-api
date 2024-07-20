@@ -3,7 +3,7 @@ import z from 'zod';
 export const carSchema = z.object({
     id: z.number().positive().int(),
     name: z.string().max(100),
-    description: z.string().optional(),
+    description: z.string().optional().nullish(),
     brand: z.string().max(100),
     year: z.number(),
     km: z.number(),
@@ -12,11 +12,6 @@ export const carSchema = z.object({
     userId: z.number().positive().int(),
 });
 
-export const carCreateSchema = carSchema.omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true,
-
-});
+export const carCreateSchema = carSchema.omit({ id: true });
 
 export const carUpdateSchema = carCreateSchema.partial();

@@ -6,7 +6,7 @@ import * as bcrypt from "bcryptjs";
 
 export class SessionService {
     public login = async (payload: SessionLogin) => {
-        const account = await prisma.account.findUnique({
+        const account = await prisma.user.findUnique({
             where: { email: payload.email },
         });
 

@@ -1,25 +1,22 @@
 import { prisma } from "../../../prisma/prisma.client";
-import {  Car ,CarCreate, CarUpdate } from "./interface";
+import {  Car, CarCreate, CarUpdate, ICarService } from "./interface";
 import { CarNotFoundError } from "./error";
 import { injectable } from "tsyringe";
 import { carSchema } from "./schemas";
 
-@injectable()
-export class CarService  {
-    
-    public create = async (payload: CarCreate) => {
-
+ @injectable() 
+export class CarService implements ICarService  {
+    public create = async (payload: CarCreate): Promise<Car> => {
         const car = await prisma.car.create({ data: payload });
-
         return car;
     };
 
-    public findAll = async () => {
+    public findAll = async (): Promise<Car[]>  => {
         const cars = await prisma.car.findMany();
         return cars;
     };
 
-    public findById = async (id: number) => {
+    public findById = async (id: number): Promise<Car> => {
         const car = await prisma.car.findUnique({ where: { id } });
 
         if (!car) {
